@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, value, Widget? child) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Vernet',
+              title: 'NetProbe',
               theme: themeChangeProvider.darkTheme
                   ? ThemeData.dark(
                     useMaterial3: true,

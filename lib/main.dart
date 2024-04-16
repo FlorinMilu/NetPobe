@@ -1,27 +1,68 @@
-import 'package:NetProbe/pages/ping_page/ping_page.dart';
-import 'package:NetProbe/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:network_tools_flutter/network_tools_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:NetProbe/helper/app_settings.dart';
+import 'package:NetProbe/models/dark_theme_provider.dart';
+import 'package:NetProbe/pages/home_page.dart';
+import 'package:NetProbe/pages/settings_page.dart';
+import 'package:NetProbe/injection.dart';
 
-import 'home_page.dart';
+AppSettings appSettings = AppSettings.instance;
 
-void main() {
+Future<void> main() async {
+  configureDependencies(Env.prod);
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocDirectory = await getApplicationDocumentsDirectory();
+  await configureNetworkToolsFlutter(appDocDirectory.path,
+      enableDebugging: true);
+
+  // load app settings
+  await appSettings.load();
   runApp(const MyApp());
-
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentAppTheme();
+  }
+
+  Future<void> getCurrentAppTheme() async {
+    themeChangeProvider.themePref =
+        await themeChangeProvider.darkThemePreference.getTheme();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (_) {
+        return themeChangeProvider;
+      },
+      child: Consumer<DarkThemeProvider>(
+        builder: (BuildContext context, value, Widget? child) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Vernet',
+              theme: themeChangeProvider.darkTheme
+                  ? ThemeData.dark(
+                    useMaterial3: true,
+                  )
+                  : ThemeData(
+                      colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen)),
+              home: const TabBarPage());
+        },
       ),
-      home: const TabBarPage(),
     );
   }
 }
@@ -42,12 +83,12 @@ class _HomePageState extends State<TabBarPage> {
 
   @override
   void initState() {
-    super.initState();    
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> children = [const HomePage(), const PingPage(), const SettingsPage()];
+    final List<Widget> children = [const HomePage(), const SettingsPage()];
     return Scaffold(
       body: Container(
         padding: MediaQuery.of(context).padding,
@@ -62,10 +103,6 @@ class _HomePageState extends State<TabBarPage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.speaker_phone_rounded),
-            label: 'Ping',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
@@ -74,4 +111,3 @@ class _HomePageState extends State<TabBarPage> {
     );
   }
 }
-

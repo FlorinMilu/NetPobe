@@ -8,6 +8,7 @@ import 'package:NetProbe/pages/ping_page/ping_page.dart';
 import 'package:NetProbe/pages/port_scan_page/port_scan_page.dart';
 import 'package:NetProbe/models/wifi_info.dart';
 import 'package:NetProbe/models/celular_data_info.dart';
+import 'package:NetProbe/pages/host_scan_page/host_scan_page.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -303,7 +304,20 @@ class _HomePageState extends State<HomePage> {
                           },
                           icon: const Icon(Icons.radar),
                           label: const Text('Open ports'),
-                        )
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HostScanPage(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.settings_input_antenna_outlined),
+                          label: const Text('Scan for devices'),
+                        ),
+
                       ],
                     ),
                   ),

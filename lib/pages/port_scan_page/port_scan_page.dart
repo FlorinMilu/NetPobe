@@ -10,7 +10,7 @@ import 'package:NetProbe/ui/custom_tile.dart';
 import 'package:NetProbe/ui/popular_chip.dart';
 
 class PortScanPage extends StatefulWidget {
-  const PortScanPage({this.target = '', this.runDefaultScan = false});
+  const PortScanPage({super.key, this.target = '', this.runDefaultScan = false});
 
   final String target;
   final bool runDefaultScan;

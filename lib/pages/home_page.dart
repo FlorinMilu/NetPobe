@@ -4,14 +4,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:NetProbe/pages/ping_page/ping_page.dart';
 import 'package:NetProbe/pages/port_scan_page/port_scan_page.dart';
 import 'package:NetProbe/models/wifi_info.dart';
 import 'package:NetProbe/models/celular_data_info.dart';
 import 'package:NetProbe/pages/host_scan_page/host_scan_page.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:NetProbe/ui/adaptive/adaptive_list.dart';
+import 'package:NetProbe/pages/dns/dns_page.dart';
+import 'package:NetProbe/pages/dns/reverse_dns_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,7 +26,6 @@ class _HomePageState extends State<HomePage> {
   CelularDataInfo? _celularDataInfo;
   bool _location = false;
   late StreamSubscription subscription;
-    
 
   Future<void> _getWifiInfo() async {
     if (Platform.isAndroid) {
@@ -54,15 +54,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _getCelularDataInfo() async {
-  
-    bool mobile = false; 
+    bool mobile = false;
     bool wifi = false;
     bool ethernet = false;
     bool vpn = false;
     bool bluetooth = false;
     bool other = false;
     bool none = false;
-    
 
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -98,7 +96,8 @@ class _HomePageState extends State<HomePage> {
     }
 
     setState(() {
-      _celularDataInfo = CelularDataInfo(mobile, wifi, ethernet, vpn, bluetooth, other, none) ;
+      _celularDataInfo =
+          CelularDataInfo(mobile, wifi, ethernet, vpn, bluetooth, other, none);
     });
     if (Platform.isAndroid || Platform.isIOS) {
       Permission.location.serviceStatus.isEnabled.then(
@@ -111,7 +110,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();    
+    super.initState();
     _getWifiInfo();
     _getCelularDataInfo();
   }
@@ -170,30 +169,37 @@ class _HomePageState extends State<HomePage> {
                     ),
             ),
             Card(
-              child:_wifiInfo == null
+              child: _wifiInfo == null
                   ? const CircularProgressIndicator.adaptive()
                   : ListTile(
                       minVerticalPadding: 10,
                       leading: const Icon(Icons.signal_cellular_alt_rounded),
                       title: const Text('Connections'),
                       subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,                        
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               const Text('Mobile Data'),
                               const Spacer(),
-                              _celularDataInfo!.mobile ? const Icon(Icons.mobile_friendly_outlined, color: Colors.green) : const Icon(Icons.mobiledata_off_sharp, color: Colors.red,),
-                              
+                              _celularDataInfo!.mobile
+                                  ? const Icon(Icons.mobile_friendly_outlined,
+                                      color: Colors.green)
+                                  : const Icon(
+                                      Icons.mobiledata_off_sharp,
+                                      color: Colors.red,
+                                    ),
                             ],
                           ),
                           const SizedBox(height: 5),
-                          Row(                                                                                    
+                          Row(
                             children: [
                               const Text('Wifi'),
                               const Spacer(),
-                              _celularDataInfo!.wifi ? const Icon(Icons.wifi, color: Colors.green) : const Icon(Icons.wifi_off_rounded, color: Colors.red),                             
-                              
+                              _celularDataInfo!.wifi
+                                  ? const Icon(Icons.wifi, color: Colors.green)
+                                  : const Icon(Icons.wifi_off_rounded,
+                                      color: Colors.red),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -201,8 +207,11 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               const Text('Ethernet'),
                               const Spacer(),
-                              _celularDataInfo!.ethernet ? const Icon(Icons.settings_ethernet, color: Colors.green) : const Icon(Icons.sensors_off, color: Colors.red),
-                              
+                              _celularDataInfo!.ethernet
+                                  ? const Icon(Icons.settings_ethernet,
+                                      color: Colors.green)
+                                  : const Icon(Icons.sensors_off,
+                                      color: Colors.red),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -210,8 +219,10 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               const Text('VPN'),
                               const Spacer(),
-                              _celularDataInfo!.vpn ? const Icon(Icons.lock, color: Colors.green) : const Icon(Icons.sensors_off, color: Colors.red),
-                              
+                              _celularDataInfo!.vpn
+                                  ? const Icon(Icons.lock, color: Colors.green)
+                                  : const Icon(Icons.sensors_off,
+                                      color: Colors.red),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -219,8 +230,11 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               const Text('Bluetooth'),
                               const Spacer(),
-                              _celularDataInfo!.bluetooth ? const Icon(Icons.bluetooth, color: Colors.green) : const Icon(Icons.bluetooth_disabled, color: Colors.red),                              
-                              
+                              _celularDataInfo!.bluetooth
+                                  ? const Icon(Icons.bluetooth,
+                                      color: Colors.green)
+                                  : const Icon(Icons.bluetooth_disabled,
+                                      color: Colors.red),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -228,8 +242,12 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               const Text('Other'),
                               const Spacer(),
-                              _celularDataInfo!.other ? const Icon(Icons.settings_input_antenna_outlined, color: Colors.green) : const Icon(Icons.sensors_off, color: Colors.red),                             
-                              
+                              _celularDataInfo!.other
+                                  ? const Icon(
+                                      Icons.settings_input_antenna_outlined,
+                                      color: Colors.green)
+                                  : const Icon(Icons.sensors_off,
+                                      color: Colors.red),
                             ],
                           ),
                           const SizedBox(height: 5),
@@ -249,14 +267,13 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       trailing: IconButton(
-                        icon: const Icon(Icons.refresh),                        
+                        icon: const Icon(Icons.refresh),
                         onPressed: () {
                           _getCelularDataInfo();
                         },
                       ),
                     ),
             ),
-
           ],
         ),
         drawer: Drawer(
@@ -310,15 +327,53 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HostScanPage(),
+                                builder: (context) => const HostScanPage(),
                               ),
                             );
                           },
-                          icon: const Icon(Icons.settings_input_antenna_outlined),
+                          icon:
+                              const Icon(Icons.settings_input_antenna_outlined),
                           label: const Text('Scan for devices'),
                         ),
-
                       ],
+                    ),
+                  ),
+                ),
+                Card(
+                  child: AdaptiveListTile(                    
+                    title: const Text('Domain Name System (DNS)'),
+                    minVerticalPadding: 10,
+                    trailing: const Icon(Icons.dns),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DNSPage(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.search),
+                          label: const Text('Lookup'),
+                        ),
+                        const SizedBox(width: 10),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ReverseDNSPage(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.find_replace),
+                          label: const Text('Reverse Lookup'),
+                        ),
+                      ],
+                      
                     ),
                   ),
                 ),

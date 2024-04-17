@@ -7,6 +7,8 @@ import 'package:NetProbe/pages/host_scan_page/host_scan_bloc/host_scan_bloc.dart
 import 'package:NetProbe/pages/port_scan_page/port_scan_page.dart';
 
 class HostScanWidget extends StatelessWidget {
+  const HostScanWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HostScanBloc, HostScanState>(

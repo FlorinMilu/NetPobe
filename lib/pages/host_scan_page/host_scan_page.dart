@@ -5,6 +5,8 @@ import 'package:NetProbe/pages/host_scan_page/host_scan_bloc/host_scan_bloc.dart
 import 'package:NetProbe/pages/host_scan_page/widgets/host_scan_widget.dart';
 
 class HostScanPage extends StatelessWidget {
+  const HostScanPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +16,7 @@ class HostScanPage extends StatelessWidget {
       body: BlocProvider(
         create: (context) =>
             getIt<HostScanBloc>()..add(const HostScanEvent.initialized()),
-        child: HostScanWidget(),
+        child: const HostScanWidget(),
       ),
     );
   }

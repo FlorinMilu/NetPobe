@@ -13,6 +13,7 @@ import 'package:NetProbe/pages/host_scan_page/host_scan_page.dart';
 import 'package:NetProbe/ui/adaptive/adaptive_list.dart';
 import 'package:NetProbe/pages/dns/dns_page.dart';
 import 'package:NetProbe/pages/dns/reverse_dns_page.dart';
+import 'package:NetProbe/pages/traceroute/trace_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -371,6 +372,31 @@ class _HomePageState extends State<HomePage> {
                           },
                           icon: const Icon(Icons.find_replace),
                           label: const Text('Reverse Lookup'),
+                        ),
+                      ],
+                      
+                    ),
+                  ),
+                ),
+                Card(
+                  child: AdaptiveListTile(                    
+                    title: const Text('Tracking'),
+                    minVerticalPadding: 10,
+                    trailing: const Icon(Icons.map_rounded),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TraceScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.pin_drop),
+                          label: const Text('Traceroute'),
                         ),
                       ],
                       

@@ -13,7 +13,7 @@ import 'package:NetProbe/pages/host_scan_page/host_scan_page.dart';
 import 'package:NetProbe/ui/adaptive/adaptive_list.dart';
 import 'package:NetProbe/pages/dns/dns_page.dart';
 import 'package:NetProbe/pages/dns/reverse_dns_page.dart';
-import 'package:NetProbe/pages/traceroute/trace_screen.dart';
+import 'package:NetProbe/pages/traceroute/traceroute_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -17,7 +17,7 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   
   late final FlutterTraceroute traceroute;
   late final TextEditingController hostController;
-  bool start = false;
+  bool start = true;
 
   @override
   void initState() {
@@ -29,7 +29,9 @@ class _TraceScreenState extends BasePage<TraceScreen> {
 
   void onTrace() {
     start = true;
+    traceroute.stopTrace();
     setState(() {
+      
       traceResults = <TracerouteStep>[];
     });
 
@@ -58,7 +60,14 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    return Column(
+      return traceResults.isEmpty
+        ? const Center(
+            child: Text(
+              'No addresses found yet.\nAll addresses will appear here.',
+              textAlign: TextAlign.center,
+            ),
+          )
+        : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 for (final result in traceResults)
@@ -77,7 +86,7 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   @override
   String buttonLabel() {
     // TODO: implement buttonLabel
-    return start ? 'Stop' : 'Start';    
+    return start ? 'Start' : 'Stop';    
   }
   
   @override
@@ -89,12 +98,17 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   @override
   Future<void> onPressed() async{
     // TODO: implement onPressed
-    traceResults.isEmpty ? onTrace() : onStop();    
+    start ? onTrace() : onStop();    
   }
   
   @override
   String title() {
     // TODO: implement title
     return 'Traceroute';    
+  }
+
+    @override
+  void dispose() {
+    super.dispose();  
   }
 }

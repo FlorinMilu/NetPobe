@@ -69,13 +69,17 @@ abstract class BasePage<T extends StatefulWidget> extends State<T> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextFormField(
-                        validator: validateIP,
-                        controller: textEditingController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          hintText: fieldLabel(),
-                        ),
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            validator: validateIP,
+                            controller: textEditingController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: fieldLabel(),
+                            ),
+                          ),                          
+                        ],
                       ),
                     ),
                     Padding(

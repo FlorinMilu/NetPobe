@@ -17,16 +17,18 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   
   late final FlutterTraceroute traceroute;
   late final TextEditingController hostController;
-  
+  bool start = false;
 
   @override
   void initState() {
     super.initState();
 
     traceroute = FlutterTraceroute();
+    
   }
 
   void onTrace() {
+    start = true;
     setState(() {
       traceResults = <TracerouteStep>[];
     });
@@ -44,6 +46,7 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   }
 
   void onStop() {
+    start = false;
     traceroute.stopTrace();
 
     setState(() {
@@ -51,57 +54,6 @@ class _TraceScreenState extends BasePage<TraceScreen> {
     });
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(title: const Text('Traceroute')),
-  //     body: SingleChildScrollView(
-  //       padding: const EdgeInsets.all(24),
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           const Text('Input IP address'),
-  //           const SizedBox(height: 16),
-  //           TextField(
-  //             decoration: const InputDecoration(
-  //               border: OutlineInputBorder(),
-  //               hintText: 'IP address',
-  //               labelText: 'IP',
-  //             ),
-  //             controller: hostController,
-  //           ),
-  //           if (Platform.isIOS) const SizedBox(height: 16),
-  //           if (Platform.isIOS)
-  //             TextField(
-  //               decoration: const InputDecoration(
-  //                 border: OutlineInputBorder(),
-  //                 hintText: 'Time to live - iOS Only',
-  //                 labelText: 'TTL - iOS Only',
-  //               ),
-  //               keyboardType: TextInputType.number,
-  //               controller: ttlController,
-  //             ),
-  //           const SizedBox(height: 16),
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //             children: [
-  //               OutlinedButton(
-  //                 onPressed: onTrace,
-  //                 child: const Text('Trace'),
-  //               ),
-  //               OutlinedButton(
-  //                 onPressed: onStop,
-  //                 child: const Text('Stop'),
-  //               ),
-  //             ],
-  //           ),
-  //           const SizedBox(height: 16),
-  //           const SizedBox(height: 16),            
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
   
   @override
   Widget buildResults(BuildContext context) {
@@ -125,7 +77,7 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   @override
   String buttonLabel() {
     // TODO: implement buttonLabel
-    return traceResults.isEmpty ? 'Start' : 'Stop';    
+    return start ? 'Stop' : 'Start';    
   }
   
   @override

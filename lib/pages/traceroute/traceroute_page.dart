@@ -21,8 +21,7 @@ class _TraceScreenState extends BasePage<TraceScreen> {
 
   @override
   void initState() {
-    super.initState();
-
+    super.initState();    
     traceroute = FlutterTraceroute();
     
   }
@@ -35,16 +34,23 @@ class _TraceScreenState extends BasePage<TraceScreen> {
       traceResults = <TracerouteStep>[];
     });
 
-    final host = textEditingController.text;
-    const ttl = 50;
+    final host = textEditingController.text;    
+    const ttl = TracerouteArgs.ttlDefault;
 
     final args = TracerouteArgs(host: host, ttl: ttl);
 
-    traceroute.trace(args).listen((event) {
+    traceroute.trace(args).listen(
+    (event) {
       setState(() {
         traceResults = List<TracerouteStep>.from(traceResults)..add(event);
       });
-    });
+    },
+    onError: (error) {
+      setState(() {
+        traceResults.add(TracerouteStepFailed('Failed to resolve host: $host'));
+      });
+    },
+  );
   }
 
   void onStop() {
@@ -67,8 +73,7 @@ class _TraceScreenState extends BasePage<TraceScreen> {
               textAlign: TextAlign.center,
             ),
           )
-        : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        : ListView(              
               children: [
                 for (final result in traceResults)
                   Text(

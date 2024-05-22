@@ -26,6 +26,7 @@ class _DNSPageState extends BasePage<DNSPage> {
           )
         : ListView.builder(
             itemCount: _addresses.length,
+            
             itemBuilder: (context, index) {
               return AdaptiveListTile(
                 onTap: () {
@@ -39,8 +40,9 @@ class _DNSPageState extends BasePage<DNSPage> {
                   );
                 },
                 title: Text(_addresses[index].address),
-                subtitle: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                subtitle: ListView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
                   children: [
                     Text('Type: ${_addresses[index].type.name},'),
                     Text('Local link: ${_addresses[index].isLinkLocal},'),

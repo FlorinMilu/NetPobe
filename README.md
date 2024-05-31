@@ -8,4 +8,4 @@ The software can be used by users to analyze information related to any network 
 
 |Home|Devices|Ping Page|Port Scan|Side Menu|Settings|
 |-|-|-|-|-|-|
-|<img src="assets/Screenshots/HomePage.png" width = "100">|<img src="assets/Screenshots/LanScan.png" width = "100">|<img src="assets/Screenshots/PingPage.png" width = "100">|<img src="assets/Screenshots/PortScan.png" width = "100">|<img src="assets/Screenshots/SideMenu.png" width = "100"|<img src="assets/Screenshots/SettingsPage.png" width = "100"~>
+|<img src="assets/Screenshots/HomePage.png" width = "100">|<img src="assets/Screenshots/LanScan.png" width = "100">|<img src="assets/Screenshots/PingPage.png" width = "100">|<img src="assets/Screenshots/PortScan.png" width = "100">|<img src="assets/Screenshots/SideMenu.png" width = "100">|<img src="assets/Screenshots/SettingsPage.png" width = "100">|

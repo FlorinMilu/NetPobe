@@ -1,16 +1,9 @@
-# net_probe
+# NetProbe
 
-A new Flutter project.
+This application was created with the goal of applying the knowledge gained from years of study to create a complete software product.
+The software can be used by users to analyze information related to any network of computers and electronic devices, directly from the mobile phone
 
-## Getting Started
+#  Screenshots
+![Screenshots](assets/Screenshots/HomePage.png, assets/Screenshots/LanScan.png, assets/Screenshots/PingPage.png, assets/Screenshots/PortScan.png, assets/Screenshots/SideMenu.png)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

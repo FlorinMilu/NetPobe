@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:NetProbe/base_page.dart';
+import 'package:NetProbe/pages/base_page.dart';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
 

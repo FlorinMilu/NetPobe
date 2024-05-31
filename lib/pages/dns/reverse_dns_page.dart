@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:NetProbe/base_page.dart';
+import 'package:NetProbe/pages/base_page.dart';
 
 class ReverseDNSPage extends StatefulWidget {
   const ReverseDNSPage({super.key});

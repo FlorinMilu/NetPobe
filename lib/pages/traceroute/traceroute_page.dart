@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:NetProbe/base_page.dart';
+import 'package:NetProbe/pages/base_page.dart';
 import 'package:NetProbe/pages/traceroute/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

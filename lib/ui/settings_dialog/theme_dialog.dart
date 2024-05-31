@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:NetProbe/models/dark_theme_provider.dart';
+import 'package:NetProbe/helper/dark_theme_provider.dart';
 
 class ThemeDialog extends StatefulWidget {
   const ThemeDialog({super.key});

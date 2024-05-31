@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:NetProbe/main.dart';
-import 'package:NetProbe/models/dark_theme_provider.dart';
+import 'package:NetProbe/helper/dark_theme_provider.dart';
 import 'package:NetProbe/ui/settings_dialog/custom_subnet_dialog.dart';
 import 'package:NetProbe/ui/settings_dialog/first_subnet_dialog.dart';
 import 'package:NetProbe/ui/settings_dialog/last_subnet_dialog.dart';

@@ -3,7 +3,7 @@ import 'package:network_tools_flutter/network_tools_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:NetProbe/helper/app_settings.dart';
-import 'package:NetProbe/models/dark_theme_provider.dart';
+import 'package:NetProbe/helper/dark_theme_provider.dart';
 import 'package:NetProbe/pages/home_page.dart';
 import 'package:NetProbe/pages/settings_page.dart';
 import 'package:NetProbe/injection.dart';

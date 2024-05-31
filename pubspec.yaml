@@ -1,5 +1,5 @@
 name: NetProbe
-description: "A a network analysis tools app."
+description: "A network analysis tools app."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1

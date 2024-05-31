@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:NetProbe/models/dark_theme_provider.dart';
+import 'package:NetProbe/helper/dark_theme_provider.dart';
 
 class DarkThemePreference {
   static const themeStatus = 'THEMESTATUS_NEW';

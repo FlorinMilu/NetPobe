@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:NetProbe/models/dark_theme_provider.dart';
+import 'package:NetProbe/helper/dark_theme_provider.dart';
 
 class AdaptiveDialog extends StatelessWidget {
   const AdaptiveDialog({

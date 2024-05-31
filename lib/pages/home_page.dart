@@ -71,27 +71,33 @@ class _HomePageState extends State<HomePage> {
     if (connectivityResult.contains(ConnectivityResult.mobile)) {
       // Mobile network available.
       mobile = true;
-    } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+    } 
+    if (connectivityResult.contains(ConnectivityResult.wifi)) {
       // Wi-fi is available.
       // Note for Android:
       // When both mobile and Wi-Fi are turned on system will return Wi-Fi only as active network type
       wifi = true;
-    } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+    } 
+    if (connectivityResult.contains(ConnectivityResult.ethernet)) {
       // Ethernet connection available.
       ethernet = true;
-    } else if (connectivityResult.contains(ConnectivityResult.vpn)) {
+    }
+    if (connectivityResult.contains(ConnectivityResult.vpn)) {
       // Vpn connection active.
       // Note for iOS and macOS:
       // There is no separate network interface type for [vpn].
       // It returns [other] on any device (also simulator)
       vpn = true;
-    } else if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
+    } 
+    if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
       // Bluetooth connection available.
       bluetooth = true;
-    } else if (connectivityResult.contains(ConnectivityResult.other)) {
+    } 
+    if (connectivityResult.contains(ConnectivityResult.other)) {
       // Connected to a network which is not in the above mentioned networks.
       other = true;
-    } else if (connectivityResult.contains(ConnectivityResult.none)) {
+    } 
+    if (connectivityResult.contains(ConnectivityResult.none)) {
       // No available network types
       none = true;
     }

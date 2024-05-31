@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_traceroute/flutter_traceroute.dart';
 import 'package:flutter_traceroute/flutter_traceroute_platform_interface.dart';
 import 'package:NetProbe/ui/popular_chip.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class TraceScreen extends StatefulWidget {
   static const defaultDNS = '8.8.8.8';
@@ -23,6 +24,8 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   late final FlutterTraceroute traceroute;
   late final TextEditingController hostController;
   bool start = true;
+  double _progress = 0;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -34,17 +37,18 @@ class _TraceScreenState extends BasePage<TraceScreen> {
     start = true;
     traceroute.stopTrace();
     setState(() {
-      traceResults = <TracerouteStep>[];
+      traceResults.clear();
     });
 
     final host = textEditingController.text;
     const ttl = TracerouteArgs.ttlDefault;
-
+    
     final args = TracerouteArgs(host: host, ttl: ttl);
 
     traceroute.trace(args).listen(
       (event) {
         setState(() {
+          _progress+= 5;
           traceResults = List<TracerouteStep>.from(traceResults)..add(event);
         });
       },
@@ -54,15 +58,22 @@ class _TraceScreenState extends BasePage<TraceScreen> {
               .add(TracerouteStepFailed('Failed to resolve host: $host'));
         });
       },
+      onDone: () {
+        setState(() {
+          start = false;
+          
+        });
+      },
     );
   }
+
 
   void onStop() {
     start = false;
     traceroute.stopTrace();
 
     setState(() {
-      traceResults = <TracerouteStep>[];      
+      traceResults.clear();
     });
   }
 
@@ -90,7 +101,9 @@ class _TraceScreenState extends BasePage<TraceScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  MapScreen(ipAddresses: ipv4addresses,),
+                    builder: (context) => MapScreen(
+                      ipAddresses: ipv4addresses,
+                    ),
                   ),
                 );
               },
@@ -168,6 +181,78 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   }
 
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title()),
+        actions: [
+          if (start)
+            const SizedBox()
+          else
+            Container(
+              margin: const EdgeInsets.only(right: 20.0),
+              child: CircularPercentIndicator(
+                radius: 10.0,
+                lineWidth: 2.5,
+                percent: _progress / 100,
+                backgroundColor: Colors.grey,
+                progressColor: Colors.green
+              ),
+            ),
+        ],
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(5.0),
+        child: Column(
+          children: [
+            Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            validator: validateIP,
+                            controller: textEditingController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: fieldLabel(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            start = true;
+                            onPressed();
+                          }
+                        },
+                        child: Text(buttonLabel()),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            buildPopularChips(),
+            Expanded(
+              child: buildResults(context),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
   String buttonLabel() {
     // TODO: implement buttonLabel
     return start ? 'Start' : 'Stop';
@@ -210,5 +295,4 @@ class _TraceScreenState extends BasePage<TraceScreen> {
     }
     return null;
   }
-
 }

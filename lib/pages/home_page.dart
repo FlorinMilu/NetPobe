@@ -123,9 +123,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(            
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: const Text('Home')),
+            title: const Text('Home'),
+            actions: const <Widget>[
+              Image(image: AssetImage('assets/icon/icon.png'), height: 60,),
+            ],),
         body: ListView(
           children: [
             Card(

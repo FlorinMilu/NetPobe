@@ -224,10 +224,14 @@ class _PortScanPageState extends State<PortScanPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Open Ports Scanner'),
         actions: [
           if (_completed)
-            const SizedBox()
+            const Image(
+            image: AssetImage('assets/icon/icon.png'),
+            height: 60,
+          )
           else
             Container(
               margin: const EdgeInsets.only(right: 20.0),

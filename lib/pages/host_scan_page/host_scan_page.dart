@@ -11,7 +11,14 @@ class HostScanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Scan for Devices'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Scan for devices'),
+        actions: const <Widget>[
+          Image(
+            image: AssetImage('assets/icon/icon.png'),
+            height: 60,
+          ),
+        ],
       ),
       body: BlocProvider(
         create: (context) =>

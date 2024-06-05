@@ -184,10 +184,14 @@ class _TraceScreenState extends BasePage<TraceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title()),
         actions: [
           if (start)
-            const SizedBox()
+            const Image(
+            image: AssetImage('assets/icon/icon.png'),
+            height: 60,
+          )
           else
             Container(
               margin: const EdgeInsets.only(right: 20.0),

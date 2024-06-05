@@ -1,6 +1,7 @@
   import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:NetProbe/helper/consent_loader.dart';
 import 'package:NetProbe/main.dart';
@@ -28,7 +29,7 @@ class _LocationConsentPageState extends State<LocationConsentPage> {
                   style: Theme.of(context).textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
-                const Icon(Icons.radar, size: 100),
+                const Image(image: AssetImage('assets/icon/icon.png'), height: 150,)   ,
                 const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.only(left: 50, right: 50),

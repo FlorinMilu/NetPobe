@@ -58,3 +58,4 @@ flutter:
   assets:
   - assets/ports_lists.json
   - assets/icon/icon.svg
+  - assets/icon/icon.png

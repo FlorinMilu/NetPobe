@@ -56,7 +56,14 @@ abstract class BasePage<T extends StatefulWidget> extends State<T> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title()),
+        actions: const <Widget>[
+          Image(
+            image: AssetImage('assets/icon/icon.png'),
+            height: 60,
+          ),
+        ],
       ),
       body: Container(
         margin: const EdgeInsets.all(5.0),
@@ -78,7 +85,7 @@ abstract class BasePage<T extends StatefulWidget> extends State<T> {
                               filled: true,
                               hintText: fieldLabel(),
                             ),
-                          ),                          
+                          ),
                         ],
                       ),
                     ),

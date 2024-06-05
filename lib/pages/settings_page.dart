@@ -23,8 +23,15 @@ class _SettingsPageState extends State<SettingsPage> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: const Text('Settings')),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Settings'),
+        actions: const  <Widget>[
+           Image(
+            image: AssetImage('assets/icon/icon.png'),
+            height: 60,
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -48,10 +55,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 subtitle: const Text(StringValue.firstSubnetDesc),
                 trailing: Text(
                   '${appSettings.firstSubnet}',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () async {
                   await showDialog(
@@ -69,10 +74,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 subtitle: const Text(StringValue.lastSubnetDesc),
                 trailing: Text(
                   '${appSettings.lastSubnet}',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () async {
                   await showDialog(
@@ -90,10 +93,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 subtitle: const Text(StringValue.socketTimeoutdesc),
                 trailing: Text(
                   '${appSettings.socketTimeout} ms',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () async {
                   await showDialog(
@@ -111,10 +112,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 subtitle: const Text(StringValue.pingCountDesc),
                 trailing: Text(
                   '${appSettings.pingCount}',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () async {
                   await showDialog(
@@ -132,10 +131,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 subtitle: const Text(StringValue.customSubnetDesc),
                 trailing: Text(
                   appSettings.customSubnet,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary),
                 ),
                 onTap: () async {
                   await showDialog(
@@ -152,5 +149,4 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-
 }

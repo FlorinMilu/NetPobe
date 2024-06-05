@@ -82,7 +82,14 @@ class _MapScreenState extends State<MapScreen> {
           } else {
             return Scaffold(
               appBar: AppBar(
-                title: Text('Map'),
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                title: const Text('Map'),
+                actions: const <Widget>[
+                  Image(
+                    image: AssetImage('assets/icon/icon.png'),
+                    height: 60,
+                  ),
+                ],
               ),
               body: FlutterMap(
                 options: MapOptions(

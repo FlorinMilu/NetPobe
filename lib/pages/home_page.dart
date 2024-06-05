@@ -66,8 +66,6 @@ class _HomePageState extends State<HomePage> {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
 
-    // This condition is for demo purposes only to explain every connection type.
-    // Use conditions which work for your requirements.
     if (connectivityResult.contains(ConnectivityResult.mobile)) {
       // Mobile network available.
       mobile = true;
@@ -258,19 +256,6 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                           const SizedBox(height: 5),
-                          if (_location)
-                            const SizedBox()
-                          else
-                            Text(
-                              'Location should be on to display Wifi name',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                            ),
                         ],
                       ),
                       trailing: IconButton(

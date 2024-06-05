@@ -7,6 +7,8 @@ import 'package:NetProbe/helper/dark_theme_provider.dart';
 import 'package:NetProbe/pages/home_page.dart';
 import 'package:NetProbe/pages/settings_page.dart';
 import 'package:NetProbe/injection.dart';
+import 'package:NetProbe/pages/location_consent_page.dart';
+import 'package:NetProbe/helper/consent_loader.dart';
 
 AppSettings appSettings = AppSettings.instance;
 
@@ -14,17 +16,18 @@ Future<void> main() async {
   configureDependencies(Env.prod);
   WidgetsFlutterBinding.ensureInitialized();
   final appDocDirectory = await getApplicationDocumentsDirectory();
-  await configureNetworkToolsFlutter(appDocDirectory.path,
-      enableDebugging: true);
+  await configureNetworkToolsFlutter(appDocDirectory.path);
+  await ConsentLoader.setConsentPageShown(false);
+  final bool allowed = await ConsentLoader.isConsentPageShown();  
 
   // load app settings
   await appSettings.load();
-  runApp(const MyApp());
+  runApp(MyApp(allowed));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
+  const MyApp(this.allowed, {super.key});
+  final bool allowed;
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -43,28 +46,30 @@ class _MyAppState extends State<MyApp> {
         await themeChangeProvider.darkThemePreference.getTheme();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) {
-        return themeChangeProvider;
-      },
-      child: Consumer<DarkThemeProvider>(
-        builder: (BuildContext context, value, Widget? child) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'NetProbe',
-              theme: themeChangeProvider.darkTheme
-                  ? ThemeData.dark(
-                    useMaterial3: true,
-                  )
-                  : ThemeData(
-                      colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen)),
-              home: const TabBarPage());
+    @override
+    Widget build(BuildContext context) {
+      return ChangeNotifierProvider(
+        create: (_) {
+          return themeChangeProvider;
         },
-      ),
-    );
-  }
+        child: Consumer<DarkThemeProvider>(
+          builder: (BuildContext context, value, Widget? child) {
+            return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'NetProbe',
+                theme: themeChangeProvider.darkTheme
+                    ? ThemeData.dark(
+                      useMaterial3: true,
+                    )
+                    : ThemeData(
+                        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen)),
+                home: widget.allowed
+                ? const TabBarPage()
+                : const LocationConsentPage(),);
+          },
+        ),
+      );
+    }
 }
 
 class TabBarPage extends StatefulWidget {

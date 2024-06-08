@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -69,13 +70,13 @@ class _HomePageState extends State<HomePage> {
     if (connectivityResult.contains(ConnectivityResult.mobile)) {
       // Mobile network available.
       mobile = true;
-    } 
+    }
     if (connectivityResult.contains(ConnectivityResult.wifi)) {
       // Wi-fi is available.
       // Note for Android:
       // When both mobile and Wi-Fi are turned on system will return Wi-Fi only as active network type
       wifi = true;
-    } 
+    }
     if (connectivityResult.contains(ConnectivityResult.ethernet)) {
       // Ethernet connection available.
       ethernet = true;
@@ -86,15 +87,15 @@ class _HomePageState extends State<HomePage> {
       // There is no separate network interface type for [vpn].
       // It returns [other] on any device (also simulator)
       vpn = true;
-    } 
+    }
     if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
       // Bluetooth connection available.
       bluetooth = true;
-    } 
+    }
     if (connectivityResult.contains(ConnectivityResult.other)) {
       // Connected to a network which is not in the above mentioned networks.
       other = true;
-    } 
+    }
     if (connectivityResult.contains(ConnectivityResult.none)) {
       // No available network types
       none = true;
@@ -123,12 +124,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(            
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: const Text('Home'),
-            actions: const <Widget>[
-              Image(image: AssetImage('assets/icon/icon.png'), height: 60,),
-            ],),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Home'),
+          actions: const <Widget>[
+            Image(
+              image: AssetImage('assets/icon/icon.png'),
+              height: 60,
+            ),
+          ],
+        ),
         body: ListView(
           children: [
             Card(
@@ -269,6 +274,80 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
             ),
+            Card(
+                child: ListTile(
+              minVerticalPadding: 10,
+              leading: const Icon(Icons.list_alt_outlined),
+              title: const Text('IPv4 Addresses'),
+              subtitle: Table(
+                children: const [
+                  TableRow(children: [
+                    Text('0.0.0.0/8'),
+                    Text(' \'This\' network'),
+                  ]),
+                  TableRow(children: [
+                    SizedBox(
+                      height: 8,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    )
+                  ]),
+                  TableRow(children: [
+                    Text('169.254.0.0/16'),
+                    Text(' Link-local'),
+                  ]),
+                  TableRow(children: [
+                    SizedBox(
+                      height: 8,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    )
+                  ]),
+                  TableRow(children: [
+                    Text('10.0.0.0/8'),
+                    Text(' Private network'),
+                  ]),
+                  TableRow(children: [
+                    SizedBox(
+                      height: 8,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    )
+                  ]),
+                  TableRow(children: [
+                    Text('172.16.0.0/12'),
+                    Text(' Private network'),
+                  ]),
+                  TableRow(children: [
+                    SizedBox(
+                      height: 8,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    )
+                  ]),
+                  TableRow(children: [
+                    Text('192.168.0.0/16'),
+                    Text(' Private network'),
+                  ]),
+                  TableRow(children: [
+                    SizedBox(
+                      height: 8,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    )
+                  ]),
+                  TableRow(children: [
+                    Text('127.0.0.0/8'),
+                    Text(' Loopback'),
+                  ]),
+                ],
+              ),
+            ))
           ],
         ),
         drawer: Drawer(
@@ -335,7 +414,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Card(
-                  child: AdaptiveListTile(                    
+                  child: AdaptiveListTile(
                     title: const Text('Domain Name System (DNS)'),
                     minVerticalPadding: 10,
                     trailing: const Icon(Icons.dns),
@@ -368,12 +447,11 @@ class _HomePageState extends State<HomePage> {
                           label: const Text('Reverse Lookup'),
                         ),
                       ],
-                      
                     ),
                   ),
                 ),
                 Card(
-                  child: AdaptiveListTile(                    
+                  child: AdaptiveListTile(
                     title: const Text('Tracking'),
                     minVerticalPadding: 10,
                     trailing: const Icon(Icons.map_rounded),
@@ -393,7 +471,6 @@ class _HomePageState extends State<HomePage> {
                           label: const Text('Traceroute'),
                         ),
                       ],
-                      
                     ),
                   ),
                 ),

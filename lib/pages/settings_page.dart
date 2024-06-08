@@ -144,6 +144,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
             ),
+             const Center( child: Text('Made with ❤️ in Romania 🇷🇴 '), heightFactor: 10,)
           ],
         ),
       ),

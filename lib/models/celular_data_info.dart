@@ -16,6 +16,4 @@ class CelularDataInfo {
   bool get bluetooth => _bluetooth ?? false;  
   bool get other => _other ?? false;
   bool get none => _none ?? false;  
-
-
 }

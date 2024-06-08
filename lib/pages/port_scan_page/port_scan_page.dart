@@ -58,7 +58,7 @@ class _PortScanPageState extends State<PortScanPage>
   }
 
   void _handleEvent(ActiveHost? host) {
-    setState(() {
+    setState(() { 
       _openPorts.addAll(host!.openPorts);
     });
   }
@@ -236,6 +236,7 @@ class _PortScanPageState extends State<PortScanPage>
             Container(
               margin: const EdgeInsets.only(right: 20.0),
               child: CircularPercentIndicator(
+                animation: true,
                 radius: 10.0,
                 lineWidth: 2.5,
                 percent: _progress / 100,
